@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GD - Godawari Web Technologies</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Font Awesome -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f4f4f4;
+      color: #333;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: #111;
+      color: white;
+      padding: 15px 30px;
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-size: 30px;
+      font-weight: bold;
+      color: #ffb100;
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 20px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a {
+      color: #eee;
+      text-decoration: none;
+      font-weight: 500;
+      position: relative;
+    }
+
+    .nav-links a:hover {
+      color: #ffb100;
+    }
+
+    .nav-links a:hover::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #ffb100;
+    }
+
+    .cta {
+      background: #ffb100;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    .hamburger {
+      display: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: white;
+    }
+
+    @media screen and (max-width: 768px) {
+      .nav-links {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background: #111;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        padding: 15px 0;
+      }
+
+      .nav-links.show {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .cta {
+        margin-top: 10px;
+      }
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 60px;
+      left: 0;
+      width: 60px;
+      height: 100%;
+      background: #222;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-top: 20px;
+      z-index: 100;
+    }
+
+    .sidebar a {
+      color: #fff;
+      text-decoration: none;
+      margin: 20px 0;
+      font-size: 20px;
+      transition: transform 0.3s ease;
+    }
+
+    .sidebar a:hover {
+      transform: scale(1.2);
+      color: #ffb100;
+    }
+
+    .hero {
+      margin-left: 60px;
+      padding: 100px 30px;
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+      color: white;
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 30px;
+    }
+
+    .hero .text {
+      max-width: 600px;
+      backdrop-filter: blur(6px);
+      background-color: rgba(255,255,255,0.05);
+      border-radius: 10px;
+      padding: 30px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 20px;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      line-height: 1.6;
+    }
+
+    .hero .btn {
+      background: #ffb100;
+      color: #111;
+      padding: 12px 24px;
+      font-weight: bold;
+      border-radius: 6px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .hero .btn:hover {
+      background: #fff;
+      color: #000;
+    }
+
+    .hero img {
+      width: 400px;
+      max-width: 100%;
+      filter: drop-shadow(2px 4px 6px #000);
+    }
+
+    @media screen and (max-width: 768px) {
+      .hero {
+        margin-left: 0;
+        flex-direction: column;
+        padding: 50px 20px;
+        text-align: center;
+      }
+
+      .sidebar {
+        display: none;
+      }
+
+      .hero .text {
+        width: 100%;
+      }
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #fff;
+      color: #111;
+    }
+
+    .section {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      padding: 50px 20px;
+      gap: 40px;
+    }
+
+    .content {
+      flex: 1 1 500px;
+      max-width: 600px;
+    }
+
+    .content h1 {
+      font-size: 36px;
+      font-weight: 900;
+      color: #ffa600;
+    }
+
+    .content h1 span {
+      color: #0f172a;
+    }
+
+    .content h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-top: 10px;
+    }
+
+    .content h2 span {
+      color: #ffa600;
+    }
+
+    .content p {
+      font-size: 16px;
+      line-height: 1.6;
+      margin-top: 20px;
+    }
+
+    .highlight {
+      font-weight: 700;
+      color: #ffa600;
+    }
+
+    .explore-btn {
+      margin-top: 30px;
+      padding: 15px 30px;
+      background-color: #ffa600;
+      color: #000;
+      border: none;
+      font-weight: 600;
+      font-size: 16px;
+      cursor: pointer;
+      border-radius: 50px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+
+    .explore-btn::before {
+      content: '➤';
+    }
+
+    .image-container {
+      flex: 1 1 400px;
+      max-width: 500px;
+    }
+
+    .image-container img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    @media (max-width: 768px) {
+      .section {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .explore-btn {
+        justify-content: center;
+      }
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f5f6f7;
+    }
+
+    .container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 40px;
+    }
+
+    .left-section, .right-section {
+      background: white;
+      border-radius: 8px;
+      padding: 30px;
+      margin: 10px;
+      flex: 1;
+      min-width: 320px;
+      max-width: 500px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      text-align: center;
+      color: #0d0d1e;
+    }
+
+    .info-block {
+      margin-bottom: 20px;
+    }
+
+    .info-block i {
+      font-size: 28px;
+      color: #000;
+    }
+
+    .info-block h3 {
+      margin: 10px 0 5px;
+      font-size: 18px;
+    }
+
+    .info-block p {
+      margin: 0;
+      color: #444;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 15px;
+    }
+
+    button {
+      width: 100%;
+      background-color: #fca311;
+      color: #000;
+      border: none;
+      padding: 14px;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #ff8800;
+    }
+
+    .recaptcha {
+      margin: 10px 0;
+    }
+    .logo span.gd {
+  color: #ff4d4d; /* लाल रंग */
+  font-weight: bold;
+}
+
+.logo span.web {
+  color: #4d94ff; /* नीला रंग */
+  font-weight: bold;
+}
+
+.logo span.tech {
+  color: #28a745; /* हरा रंग */
+  font-weight: bold;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+  <div class="logo">
+    <span class="gd">GD</span> 
+    <span class="web">web</span> 
+    <span class="tech">tech</span>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+  <div class="nav-links" id="navLinks">
+    <a href="#">Home</a>
+    <a href="#">Web Designing</a>
+    <a href="#">Digital Marketing</a>
+    <a href="#">E-Commerce</a>
+    <a href="#">Career</a>
+    <a href="#">Contact</a>
+    <a href="#" class="cta">Free Consultation</a>
+  </div>
+</div>
+
+
+  <div class="sidebar">
+    <a href="#"><i class="fab fa-whatsapp"></i></a>
+    <a href="#"><i class="fas fa-phone"></i></a>
+    <a href="#"><i class="fas fa-envelope"></i></a>
+  </div>
+
+  <section class="hero">
+    <div class="text">
+      <h1>Startup Idea?</h1>
+      <p>हम डिज़ाइन, डेवलपमेंट और स्ट्रैटेजी के साथ आपके बिज़नेस को एक डिजिटल ब्रांड बनाते हैं। अब अपनी वेबसाइट या ऐप बनवाइए प्रोफेशनल टीम के साथ।</p>
+      <a href="#" class="btn">Discuss Your Project</a>
+    </div>
+    <img src="https://www.shutterstock.com/image-photo/analyst-uses-computer-dashboard-data-600nw-2285412737.jpg" alt="Startup Idea"/>
+  </section>
+
+  
+
+  
+
+  <section class="section">
+    <div class="content">
+      <h1>Website design company <span>Indore</span></h1>
+      <h2>Discover Websoft: <span>Where Innovation meets Technology</span></h2>
+      <p>Are you in search of a reliable partner to elevate your online presence? Look no further than Discover Websoft, your trusted <span class="highlight">website design & development company</span> based in Indore. With over 8 years of experience in the industry, we specialize in providing unparalleled web development and digital marketing services tailored to meet your unique business needs.</p>
+      <a href="#" class="explore-btn">Explore More</a>
+    </div>
+    <div class="image-container">
+      <img src="https://discoverwebsoft.com/wp-content/uploads/2025/01/Website-Designing-Company-in-Indore.webp" alt="Web Design Work">
+    </div>
+  </section>
+
+  <!-- Font Awesome CDN (HEAD में जोड़ें) -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+<section class="services-section py-5" style="background: #fdf8ec;">
+  <div class="container text-center">
+    <h2 class="fw-bold mb-3">How can we help you?</h2>
+    <p class="mb-5">
+      At Discover Websoft, we understand the importance of a captivating online presence in today’s digital landscape.
+    </p>
+    <div class="row justify-content-center g-4">
+      
+      <!-- Website Designing -->
+      <div class="col-md-4">
+        <div class="card p-4 h-100 shadow-sm border-0">
+          <div class="mb-3">
+            <i class="fas fa-laptop-code fa-2x text-warning"></i>
+          </div>
+          <h4 class="fw-bold">Website Designing</h4>
+          <p class="mt-2">
+            We Expertise in Web Designing, Concept Creativity, Layout Creations, Customized based product strategy, that’s why we are Best Website design company Indore.
+          </p>
+          <a href="#" class="btn btn-warning fw-bold mt-auto rounded-pill">START NOW</a>
+        </div>
+      </div>
+
+      <!-- Website Development -->
+      <div class="col-md-4">
+        <div class="card p-4 h-100 shadow-sm border-0">
+          <div class="mb-3">
+            <i class="fas fa-code fa-2x text-warning"></i>
+          </div>
+          <h4 class="fw-bold">Website Development</h4>
+          <p class="mt-2">
+            Our Creativity enhances performance with optimization technology to realise your business brand accordingly with PHP, WordPress, HTML, CSS, Bootstrap etc.
+          </p>
+          <a href="#" class="btn btn-warning fw-bold mt-auto rounded-pill">START NOW</a>
+        </div>
+      </div>
+
+      <!-- E-commerce Web Design -->
+      <div class="col-md-4">
+        <div class="card p-4 h-100 shadow-sm border-0">
+          <div class="mb-3">
+            <i class="fas fa-shopping-cart fa-2x text-warning"></i>
+          </div>
+          <h4 class="fw-bold">E-commerce Web Design</h4>
+          <p class="mt-2">
+            Today this Generation wants the Best easiest way to order any products online, that we are here to help you out with Premium Segment E-commerce Website development solutions.
+          </p>
+          <a href="#" class="btn btn-warning fw-bold mt-auto rounded-pill">START NOW</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-- Font Awesome & Bootstrap CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<section class="py-5" style="background: #fdf8ec;">
+  <div class="container text-center">
+    <div class="row g-4">
+      
+      <!-- Graphic Designing -->
+      <div class="col-md-4">
+        <div class="bg-white p-4 shadow-sm h-100">
+          <div class="mb-3">
+            <i class="fas fa-lightbulb fa-3x text-warning"></i>
+          </div>
+          <h5 class="fw-bold">Graphic Designing</h5>
+          <p class="my-3">
+            Graphic designing is not only about creating any design but also connecting your brand with visually effective ultra-pro level creativity in the Industry. Discover Websoft only company that provides 200% Quality Customized Design in the Industry.
+          </p>
+          <a href="#" class="btn btn-warning fw-bold rounded-pill px-4">START NOW</a>
+        </div>
+      </div>
+
+      <!-- Digital Marketing -->
+      <div class="col-md-4">
+        <div class="bg-white p-4 shadow-sm h-100">
+          <div class="mb-3">
+            <i class="fas fa-rocket fa-3x text-warning"></i>
+          </div>
+          <h5 class="fw-bold">Digital Marketing</h5>
+          <p class="my-3">
+            From search engine optimization (SEO) and pay-per-click (PPC) advertising to social media marketing and content creation, we offer a comprehensive suite of digital marketing services to help you stand out in the crowded online space.
+          </p>
+          <a href="#" class="btn btn-warning fw-bold rounded-pill px-4">START NOW</a>
+        </div>
+      </div>
+
+      <!-- SEO & SMM -->
+      <div class="col-md-4">
+        <div class="bg-white p-4 shadow-sm h-100">
+          <div class="mb-3">
+            <i class="fas fa-search-dollar fa-3x text-warning"></i>
+          </div>
+          <h5 class="fw-bold">SEO & SMM</h5>
+          <p class="my-3">
+            Again, there is no doubt in saying that we are the only company that limits the brand awareness for any company with 500% result-oriented work, where you will get double the benefit of your investment in social media awareness. With instant results.
+          </p>
+          <a href="#" class="btn btn-warning fw-bold rounded-pill px-4">START NOW</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+ 
+
+  <div class="container">
+    <!-- Left Section -->
+    <div class="left-section">
+      <div class="info-block">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Branch Office</h3>
+        <p>702- 7th Floor, Shagun Arcade, Vijay Nagar, Indore, MP 452010</p>
+      </div>
+
+      <div class="info-block">
+        <i class="fas fa-map-marker-alt"></i>
+        <h3>Registered Office</h3>
+        <p>125-F, near Mahalaxmi Nagar, Scheme 134, Nipania, Indore, MP 452010</p>
+      </div>
+
+      <div class="info-block">
+        <i class="fas fa-phone-alt"></i>
+        <h3>Contact Now</h3>
+        <p>+91 7489963385 | 9589708420 | 8109624420 | 7587673440</p>
+      </div>
+
+      <div class="info-block">
+        <i class="fas fa-envelope"></i>
+        <h3>Email Us</h3>
+        <p>info@discoverwebsoft.com<br>sales@discoverwebsoft.com</p>
+      </div>
+    </div>
+
+    <!-- Right Section -->
+    <div class="right-section">
+      <h2>CONTACT FOR FREE CONSULTATION</h2>
+      <form id="contactForm">
+        <input type="text" name="firstName" placeholder="First Name" required />
+        <input type="text" name="lastName" placeholder="Last Name" required />
+        <input type="tel" name="phone" placeholder="Mobile Number" required />
+        <input type="email" name="email" placeholder="Email Id" required />
+        <select name="service" required>
+          <option value="">Select Your Services</option>
+          <option value="Web Development">Web Development</option>
+          <option value="App Development">App Development</option>
+          <option value="SEO Services">SEO Services</option>
+        </select>
+
+        <div class="recaptcha">
+          <div class="g-recaptcha" data-sitekey="your_site_key_here"></div>
+        </div>
+
+        <button type="submit">SUBMIT</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
+  <script>
+    document.getElementById('contactForm').addEventListener('submit', function(e){
+      e.preventDefault();
+
+      // Check reCAPTCHA filled
+      if (grecaptcha.getResponse() === '') {
+        alert('Please verify you are not a robot!');
+        return;
+      }
+
+      alert('Thank you! Your form has been submitted.');
+      // You can now send form data to server here using AJAX or form action.
+    });
+  </script>
+
+
+<!-- Font Awesome & Bootstrap CDN -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<footer class="text-white pt-5 pb-3" style="background-color: #0a1128; position: relative;">
+  <div class="container">
+    <div class="row text-center text-md-start">
+      <!-- Logo & Social -->
+      <div class="col-md-4 mb-4">
+        <img src="logo.jpg" alt="Logo" style="max-width: 120px;" class="mb-3">
+        <div class="d-flex justify-content-center justify-content-md-start gap-3 fs-5">
+          <a href="#" class="text-white"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-google"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-x-twitter"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" class="text-white"><i class="fab fa-youtube"></i></a>
+        </div>
+      </div>
+
+      <!-- Important Links -->
+      <div class="col-md-2 mb-4">
+        <h5 class="fw-semibold">Important Links</h5>
+        <ul class="list-unstyled">
+          <li><a href="#" class="text-white text-decoration-none">All Services</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Dynamic Website</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Social Media</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Static Website</a></li>
+          <li><a href="#" class="text-white text-decoration-none">About</a></li>
+          <li><a href="#" class="text-white text-decoration-none">Blog</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact Numbers -->
+      <div class="col-md-3 mb-4">
+        <h5 class="fw-semibold">Connect With Us</h5>
+        <p class="mb-1">+91 6264536204</p>
+        <p class="mb-1">+91 8827556265</p>
+      
+      </div>
+
+      <!-- Branch Office -->
+      <div class="col-md-3 mb-4">
+        <h5 class="fw-semibold">Branch Office</h5>
+        <p class="mb-1">khandwa naka , Indore, Madhya Pradesh 452020</p>
+        <p class="fw-semibold mb-1">Registered Office</p>
+        <p>limbodi<br>  queens collge khndwa naka, Indore,<br> Madhya Pradesh 452010</p>
+      </div>
+    </div>
+
+    <div class="text-center mt-3 text-white-50">
+      Copyright © 2025 <span class="text-warning">Discover Websoft</span>
+    </div>
+  </div>
+
+  <!-- WhatsApp & Call Floating Icons -->
+  <a href="https://wa.me/91XXXXXXXXXX" class="position-fixed bottom-0 start-0 m-3" style="z-index: 999;">
+    <img src="https://img.icons8.com/color/48/000000/whatsapp--v1.png" alt="WhatsApp" style="width: 50px; height: 50px;">
+  </a>
+  <a href="tel:+91XXXXXXXXXX" class="position-fixed bottom-0 end-0 m-3 bg-warning rounded-circle d-flex align-items-center justify-content-center" style="width: 50px; height: 50px; z-index: 999;">
+    <i class="fas fa-phone text-white"></i>
+  </a>
+</footer>
+
+<script>
+    function toggleMenu() {
+      const navLinks = document.getElementById("navLinks");
+      navLinks.classList.toggle("show");
+    }
+  </script>
+</body>
+</html>
